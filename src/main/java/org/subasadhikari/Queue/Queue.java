@@ -9,13 +9,15 @@ public class Queue<T> {
         private T[] queue;
         private int curposFront ;
         private int curposBack ;
+        private int length;
 
         public int getSize() {
             return size;
         }
 
         public int getLength() {
-            return curposFront - curposBack;
+
+            return this.length;
         }
 
         public Queue(int size) {
@@ -23,24 +25,28 @@ public class Queue<T> {
             queue = (T[])new Object[this.size];
             this.curposFront = 0;
             this.curposBack = 0;
+            this.length = 0;
 
         }
         public boolean enqueue(T item){
-            if((curposFront +1)%this.size == curposBack%this.size ){
+            if(this.isFull() ){
                 return false;
             }else{
-                queue[(curposFront++)%this.size] = item;
+                queue[(curposFront)%this.size] = item;
+                curposFront++;
+                this.length++;
                 return true;
             }
 
 
         }
         public T dequeue() throws Exception {
-            if (curposFront%this.size==curposBack%this.size){
+            if (this.isEmpty()){
                 throw new Exception("Queue is empty");
             }
-            T item  = queue[curposBack];
+            T item  = queue[curposBack%this.size];
             queue[(curposBack++)%this.size] = null;
+            this.length--;
 
             return item;
         }
@@ -49,7 +55,7 @@ public class Queue<T> {
             return Arrays.toString(queue);
         }
         public T peek() throws Exception {
-            if(curposFront%this.size == curposBack%this.size)
+            if(this.isEmpty())
             {
                 throw new Exception("The Queue is empty");
 
@@ -58,9 +64,13 @@ public class Queue<T> {
         }
         public boolean isEmpty()
         {
-            return curposFront%this.size == curposBack%this.size;
+            return length == 0;
         }
-        public boolean isFull() {return abs(curposFront%this.size-curposBack%this.size)==this.size;}
+        public boolean isFull() {return length == this.size;}
+        public void printpos(){
+            System.out.println(curposFront);
+            System.out.println(curposBack);
+        }
     }
 
 

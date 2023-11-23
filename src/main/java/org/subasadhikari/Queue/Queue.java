@@ -46,7 +46,7 @@ public class Queue<T> {
         }
         public String toString()
         {
-            return Arrays.toString(stackarray);
+            return Arrays.toString(queue);
         }
         public T peek() throws Exception {
             if(curposFront%this.size == curposBack%this.size)

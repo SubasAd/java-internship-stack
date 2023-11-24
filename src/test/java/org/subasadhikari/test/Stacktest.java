@@ -72,4 +72,5 @@ public class Stacktest {
         assertFalse(stringStack.isEmpty());
         assertEquals("Two", stringStack.pop());
     }
+
 }

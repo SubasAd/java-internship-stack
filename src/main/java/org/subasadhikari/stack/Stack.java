@@ -1,4 +1,4 @@
-package org.subasadhikari;
+package org.subasadhikari.stack;
 import java.lang.Object;
 import java.util.Arrays;
 public class Stack<T> {
@@ -6,6 +6,10 @@ public class Stack<T> {
     private T[] stackarray;
     private int curpos ;
 
+    /**
+     *
+     * @return maximum allowed length
+     */
     public int getSize() {
         return size;
     }
@@ -14,12 +18,22 @@ public class Stack<T> {
         return curpos;
     }
 
+    /**
+     *
+     * @param size maximum length of the stack.
+     */
     public Stack(int size) {
         this.size = size;
         stackarray = (T[])new Object[this.size];
         this.curpos = 0;
 
     }
+
+    /**
+     *
+     * @param item
+     * @return true if item has been pushed
+     */
     public boolean push(T item){
         if(curpos >= size ){
             return false;
@@ -33,7 +47,7 @@ public class Stack<T> {
 
     /**
      *
-     * @return
+     * @return the item that has been popped
      * @throws Exception
      */
     public T pop() throws Exception {

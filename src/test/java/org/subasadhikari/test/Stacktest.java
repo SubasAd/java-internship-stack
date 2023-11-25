@@ -1,7 +1,7 @@
 package org.subasadhikari.test;
 
 
-import org.subasadhikari.Stack;
+import org.subasadhikari.stack.Stack;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

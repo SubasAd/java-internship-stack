@@ -28,7 +28,13 @@ public class Queue<T> {
             this.length = 0;
 
         }
-        public boolean enqueue(T item){
+
+    /**
+     *
+     * @param item
+     * @return true if item is added
+     */
+    public boolean enqueue(T item){
             if(this.isFull() ){
                 return false;
             }else{
@@ -40,7 +46,13 @@ public class Queue<T> {
 
 
         }
-        public T dequeue() throws Exception {
+
+    /**
+     *
+     * @return item that has been dequeued
+     * @throws Exception if queue is empty
+     */
+    public T dequeue() throws Exception {
             if (this.isEmpty()){
                 throw new Exception("Queue is empty");
             }
@@ -50,7 +62,12 @@ public class Queue<T> {
 
             return item;
         }
-        public String toString()
+
+    /**
+     *
+     * @return array representation of the queue
+     */
+    public String toString()
         {
             return Arrays.toString(queue);
         }
@@ -67,10 +84,7 @@ public class Queue<T> {
             return length == 0;
         }
         public boolean isFull() {return length == this.size;}
-        public void printpos(){
-            System.out.println(curposFront);
-            System.out.println(curposBack);
-        }
+
     }
 
 

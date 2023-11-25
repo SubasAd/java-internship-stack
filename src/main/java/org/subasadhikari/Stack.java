@@ -30,6 +30,12 @@ public class Stack<T> {
 
 
     }
+
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
     public T pop() throws Exception {
         if (curpos==0){
             throw new Exception("Stack is empty");

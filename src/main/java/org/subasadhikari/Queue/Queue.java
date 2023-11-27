@@ -32,11 +32,11 @@ public class Queue<T> {
     /**
      *
      * @param item
-     * @return true if item is added
+     * @return true if item is added throws Exception if Queue is full.
      */
-    public boolean enqueue(T item){
+    public boolean enqueue(T item) throws QueueIsFullException {
             if(this.isFull() ){
-                return false;
+                throw new QueueIsFullException("Queue is Full");
             }else{
                 queue[(curposFront)%this.size] = item;
                 curposFront++;
@@ -54,7 +54,7 @@ public class Queue<T> {
      */
     public T dequeue() throws Exception {
             if (this.isEmpty()){
-                throw new Exception("Queue is empty");
+                throw new QueueIsEmptyException("Queue is Empty");
             }
             T item  = queue[curposBack%this.size];
             queue[(curposBack++)%this.size] = null;
@@ -74,7 +74,7 @@ public class Queue<T> {
         public T peek() throws Exception {
             if(this.isEmpty())
             {
-                throw new Exception("The Queue is empty");
+                throw new QueueIsEmptyException("The Queue is empty");
 
             }
             return queue[(curposFront-1)%this.size];

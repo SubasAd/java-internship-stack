@@ -1,6 +1,8 @@
 package org.subasadhikari.test;
 import org.subasadhikari.Queue.Queue;
 import org.junit.Test;
+import org.subasadhikari.Queue.QueueIsEmptyException;
+import org.subasadhikari.Queue.QueueIsFullException;
 
 import static org.junit.Assert.*;
 
@@ -72,20 +74,46 @@ import static org.junit.Assert.*;
             queue.dequeue();
             assertTrue(queue.isEmpty());
 
-            assertThrows(Exception.class, queue::peek);
+
+        }
+        @Test
+        public void testPeekWithException() throws Exception {
+            Queue<String> queue = new Queue<>(3);
+
+            assertTrue(queue.isEmpty());
+
+            queue.enqueue("One");
+            queue.enqueue("Two");
+            queue.enqueue("Three");
+
+            assertEquals("Three", queue.peek());
+            assertFalse(queue.isEmpty());
+
+            queue.dequeue();
+            assertEquals("Three", queue.peek());
+
+            queue.dequeue();
+            assertEquals("Three", queue.peek());
+
+            queue.dequeue();
+            assertTrue(queue.isEmpty());
+
+             QueueIsEmptyException ex = assertThrows(QueueIsEmptyException.class, queue::peek);
+             assertEquals("The Queue is empty",ex.getMessage());
         }
 
         @Test
-        public void testEmptyQueueDequeue() {
+        public void testEmptyQueueDequeueWithException() {
             Queue<Double> queue = new Queue<>(4);
 
             assertTrue(queue.isEmpty());
 
-            assertThrows(Exception.class, queue::dequeue);
+            QueueIsEmptyException qe = assertThrows(QueueIsEmptyException.class, queue::dequeue);
+            assertEquals("Queue is Empty",qe.getMessage());
         }
 
         @Test
-        public void testFullQueueEnqueue() {
+        public void testFullQueueEnqueue() throws QueueIsFullException {
             Queue<Character> queue = new Queue<>(2);
 
             assertTrue(queue.isEmpty());
@@ -95,7 +123,17 @@ import static org.junit.Assert.*;
 
             assertTrue(queue.isFull());
 
-            assertFalse(queue.enqueue('C'));
+        }
+        @Test
+        public void testFullQueueEnqueueAgainstException() throws QueueIsFullException {
+            Queue<Character> queue = new Queue<>(2);
+
+            queue.enqueue('A');
+            queue.enqueue('B');
+            QueueIsFullException qf = assertThrows(QueueIsFullException.class,()->queue.enqueue('C'));
+            assertEquals("Queue is Full",qf.getMessage());
+
+
         }
     }
 

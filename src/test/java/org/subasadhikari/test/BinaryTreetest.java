@@ -1,6 +1,8 @@
 package org.subasadhikari.test;
 import org.junit.Test;
 import org.subasadhikari.binaryTree.BinaryTree;
+import org.subasadhikari.binaryTree.SameKeyException;
+import org.junit.function.ThrowingRunnable;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -9,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class BinaryTreetest {
     @Test
-   public void testInsertionAndSearch() {
+   public void testInsertionAndSearch() throws SameKeyException {
         // Creating a binary tree of integers
         BinaryTree<Integer> binaryTree = new BinaryTree<>(new Comparator<Integer>() {
             @Override
@@ -41,7 +43,7 @@ public class BinaryTreetest {
     }
 
     @Test
-    public void testTraversal() {
+    public void testTraversal() throws SameKeyException {
         // Creating a binary tree of integers
         BinaryTree<Integer> binaryTree = new BinaryTree<>(new Comparator<Integer>() {
             @Override
@@ -84,5 +86,24 @@ public class BinaryTreetest {
         assertEquals(15, (int) postorderList.get(3));
         assertEquals(10, (int) postorderList.get(4));
     }
+    @Test
+    public void testInsertionAndSearchWithException() throws SameKeyException {
+        BinaryTree<Integer> binaryTree = new BinaryTree<>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer integer, Integer t1) {
+                if(integer < t1) return -1;
+                if(integer > t1) return 1;
+                return 0;
+            }
+        });
+        assertTrue(binaryTree.insert(5));
+        assertTrue(binaryTree.insert(10));
+
+
+        Exception exception = assertThrows(SameKeyException.class,()-> binaryTree.insert(5));
+        assertEquals("The key has been already inserted",exception.getMessage());
+
+    }
+
 }
 

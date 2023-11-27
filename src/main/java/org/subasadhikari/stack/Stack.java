@@ -1,4 +1,7 @@
 package org.subasadhikari.stack;
+import org.subasadhikari.Queue.QueueIsEmptyException;
+import org.subasadhikari.Queue.QueueIsFullException;
+
 import java.lang.Object;
 import java.util.Arrays;
 public class Stack<T> {
@@ -32,11 +35,12 @@ public class Stack<T> {
     /**
      *
      * @param item
-     * @return true if item has been pushed
+     * @return true if item has been pushed else throws Exception
      */
-    public boolean push(T item){
+    public boolean push(T item) throws StackIsFullException {
         if(curpos >= size ){
-            return false;
+            throw new StackIsFullException("Stack is Full");
+
         }else{
             stackarray[curpos++] = item;
             return true;
@@ -52,7 +56,7 @@ public class Stack<T> {
      */
     public T pop() throws Exception {
         if (curpos==0){
-            throw new Exception("Stack is empty");
+            throw new StackIsEmptyException("The Stack is Empty");
         }
         T item  = stackarray[curpos-1];
         stackarray[--curpos] = null;
@@ -66,7 +70,7 @@ public class Stack<T> {
     public T peek() throws Exception {
         if(curpos == 0)
         {
-            throw new Exception("The Stack is empty");
+            throw new StackIsEmptyException("Empty Stack can't be peeked");
 
         }
         return stackarray[curpos-1];

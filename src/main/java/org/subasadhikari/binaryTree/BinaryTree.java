@@ -30,11 +30,17 @@ public class BinaryTree<T> {
      * @param data any object to be inserted
      * @return true if data is inserted
      */
-    public boolean insert(T data){
+    public boolean insert(T data) throws SameKeyException {
         if(Root == null){
             Root = new Node<>();
             Root.data = data;
             return true;
+        }
+        if(this.search(data))
+        {
+
+                throw new SameKeyException("The key has been already inserted");
+
         }
         Node<T> iterator = Root;
         while(true){

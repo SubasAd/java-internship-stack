@@ -81,7 +81,7 @@ public class BinaryTree<T> {
      * @param x denominator for traversing
      * @return LinkedList of the data of the nodes traversed
      */
-    public  LinkedList<T>orderTraverse(int x) // 0 -> in, 1 -> pre,2-> post
+    public  LinkedList<T>orderTraverse(int x)
     {
             LinkedList<T> output = new LinkedList<>();
             if(x ==0) inorderTraverse(this.Root,output);
